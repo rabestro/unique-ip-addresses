@@ -31,6 +31,14 @@ class IPv4SetTest extends Specification {
         ipAddress << ['0.0.0.0', '255.255.255.255', '128.21.0.15']
     }
 
+    def 'should return one when add first address'() {
+        when:
+        container.add('0.0.0.0')
+
+        then:
+        container.size() == 1
+    }
+
     @PendingFeature
     def 'should thrown an exception if wrong ip address'() {
         when:
@@ -42,4 +50,5 @@ class IPv4SetTest extends Specification {
         where:
         ipAddress << ['0.0.0.', '256.255.255.255', '-128.21.0.15']
     }
+
 }
