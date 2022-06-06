@@ -1,4 +1,4 @@
-# codereview-task1-ip-addresses
+# Unique IPv4 addresses
 
 A simple task to count the number of unique IPv4 addresses in a huge file.
 
