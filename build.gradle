@@ -1,0 +1,76 @@
+plugins {
+    id 'groovy'
+    id 'application'
+    id 'jacoco'
+    id "org.sonarqube" version "3.3"
+}
+
+group 'lv.id.jc'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spock Framework
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
+    testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+    testImplementation 'org.spockframework:spock-core'
+
+    // Spock Reports
+    testRuntimeClasspath 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
+    testImplementation 'org.slf4j:slf4j-api:1.7.36'
+    testRuntimeClasspath 'org.slf4j:slf4j-simple:1.7.36'
+}
+
+// In order to run the application type the command:
+// ./gradlew run -q --console=plain
+
+run {
+    standardInput = System.in
+}
+
+application {
+    mainModule = 'ip.address.main'
+    mainClass = 'lv.id.jc.ipv4.Main'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+
+    systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
+    systemProperty 'com.athaydes.spockframework.report.projectName', 'Learning Progress Tracker'
+    systemProperty 'com.athaydes.spockframework.report.projectVersion', 1.0
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "**/config/*"
+            ])
+        }))
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "rabestro_codereview-task1-ip-addresses"
+        property "sonar.organization", "rabestro"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
