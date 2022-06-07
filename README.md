@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rabestro_codereview-task1-ip-addresses&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rabestro_codereview-task1-ip-addresses)
+
 # IPv4 addresses
 
 A simple task to count the number of unique IPv4 addresses in a huge file.
@@ -17,4 +19,34 @@ The file size is not limited and can take tens and hundreds of gigabytes.
 
 Your task is to count the number of unique addresses in this file, spending as little memory and time as possible.
 
+## How to build and run the project
+
+To build the application you may use this command:
+
+```shell
+./gradlew assemble
+```
+
+This command creates executable jar, so on Linux/Mac you may run it by
+
+```shell
+./build/libs/ipv4-1.0-SNAPSHOT.jar ../../ip_addresses
+```
+
+On Windows and also on Linux/Mac systems you can run it by the command:
+
+```shell
+java -jar build\libs\ipv4-1.0-SNAPSHOT.jar C:\Users\jegors.cemisovs\Downloads\ip_addresses\ip_addresses
+```
+
+Please note, that in order to run the application you should specify a full path to the text file with IPv4 addresses. 
+
+## Run test
+
+Unit tests, integration tests and application functional test are written using the Spock Framework.
+
+Tests can be run with the command: 
+```shell
+./gradlew test
+```
 

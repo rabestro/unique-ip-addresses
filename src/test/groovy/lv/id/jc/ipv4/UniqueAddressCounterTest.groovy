@@ -11,14 +11,14 @@ class UniqueAddressCounterTest extends Specification {
     def converter = Mock Ipv4ToIntConverter
 
     def 'should use container and converter to count unique IPv4 addresses'() {
-        given: 'counter with container and converter'
+        given: 'counter with mocked container and converter'
         def counter = new UniqueAddressCounter(container, converter)
 
-        when:
-        counter.applyAsLong(ip.stream())
+        when: 'we use counter to process stream of ip addresses'
+        counter.applyAsLong ip.stream()
 
         then: 'for each IP address, the converter was called'
-        ip.size() * converter.applyAsInt(_)
+        ip.size() * converter.applyAsInt(_ as String)
 
         and: 'each number has been added to the container'
         ip.size() * container.add(_)

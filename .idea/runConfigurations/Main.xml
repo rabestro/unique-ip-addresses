@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="lv.id.jc.ipv4.CounterApp" />
+    <option name="MAIN_CLASS_NAME" value="lv.id.jc.ipv4.Main" />
     <module name="ipv4.main" />
     <option name="PROGRAM_PARAMETERS" value="C:\Users\jegors.cemisovs\Downloads\ip_addresses\ip_addresses" />
     <extension name="coverage">

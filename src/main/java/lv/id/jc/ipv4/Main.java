@@ -9,7 +9,7 @@ import java.time.Instant;
 /**
  * Console application for counting unique addresses in a text file
  */
-public class CounterApp {
+public class Main {
 
     /**
      * Application start point
@@ -21,6 +21,7 @@ public class CounterApp {
      * @param args - path to the test file in the first argument
      * @throws IndexOutOfBoundsException if no arguments provided
      */
+    @SuppressWarnings("squid:S106")
     public static void main(String[] args) throws IOException {
         var start = Instant.now();
 

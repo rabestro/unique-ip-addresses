@@ -36,6 +36,14 @@ application {
     mainClass = 'lv.id.jc.ipv4.Main'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'lv.id.jc.ipv4.Main'
+        )
+    }
+}
+
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
