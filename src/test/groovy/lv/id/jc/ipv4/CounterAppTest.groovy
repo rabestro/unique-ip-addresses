@@ -1,10 +1,6 @@
 package lv.id.jc.ipv4
 
-import spock.lang.Issue
-import spock.lang.Narrative
-import spock.lang.PendingFeature
-import spock.lang.Specification
-import spock.lang.Title
+import spock.lang.*
 
 @Issue('1')
 @Title('Application')

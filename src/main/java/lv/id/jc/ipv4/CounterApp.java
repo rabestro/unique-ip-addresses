@@ -24,13 +24,15 @@ public class CounterApp {
     public static void main(String[] args) throws IOException {
         var start = Instant.now();
 
-        var counter = new UniqueAddressCounter(
-                new IntSet(),
-                new Ipv4AddressConverterOld()
-        );
 
         try (var addresses = Files.lines(Path.of(args[0]))) {
-            System.out.println(counter.applyAsLong(addresses));
+
+            var result = new UniqueAddressCounter(
+                    new IntSet(),
+                    new Ipv4ToIntConverter()
+            ).applyAsLong(addresses);
+
+            System.out.println(result);
         }
 
         System.out.println(Duration.between(start, Instant.now()));
