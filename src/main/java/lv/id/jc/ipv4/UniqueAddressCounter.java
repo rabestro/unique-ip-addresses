@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 public class UniqueAddressCounter implements ToLongFunction<Stream<String>> {
 
     private final IntSet container;
-    private final ToIntFunction<String> converter;
+    private final ToIntFunction<CharSequence> converter;
 
-    public UniqueAddressCounter(IntSet container, ToIntFunction<String> converter) {
+    public UniqueAddressCounter(IntSet container, ToIntFunction<CharSequence> converter) {
         this.container = container;
         this.converter = converter;
     }

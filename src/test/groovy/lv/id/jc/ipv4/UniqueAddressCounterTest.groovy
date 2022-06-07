@@ -10,7 +10,7 @@ class UniqueAddressCounterTest extends Specification {
     def container = Mock IntSet
     def converter = Mock Ipv4ToIntConverter
 
-    def "should count unique IPv4 addresses"() {
+    def 'should use container and converter to count unique IPv4 addresses'() {
         given: 'counter with container and converter'
         def counter = new UniqueAddressCounter(container, converter)
 
@@ -28,7 +28,7 @@ class UniqueAddressCounterTest extends Specification {
 
         where:
         ip << [
-                [], ['192.198.15.11', '200.0.0.12']
+                [], ['1.45.2.57'], ['192.198.15.11', '200.0.0.12']
         ]
 
     }

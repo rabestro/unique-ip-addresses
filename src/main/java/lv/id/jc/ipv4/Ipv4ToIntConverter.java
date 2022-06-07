@@ -5,20 +5,26 @@ import java.util.function.ToIntFunction;
 /**
  * Converts the string representation of an IPv4 address to an int number.
  */
-public class Ipv4ToIntConverter implements ToIntFunction<String> {
+public class Ipv4ToIntConverter implements ToIntFunction<CharSequence> {
+    private static final int DECIMAL_BASE = 10;
 
+    /**
+     *
+     * @param ipAddress representation of an IPv4 address
+     * @return int number representing the given address
+     */
     @Override
-    public int applyAsInt(String value) {
+    public int applyAsInt(CharSequence ipAddress) {
         long base = 0;
         long part = 0;
 
-        for (int i  = 0; i < value.length(); ++i) {
-            char symbol = value.charAt(i);
+        for (int i  = 0; i < ipAddress.length(); ++i) {
+            char symbol = ipAddress.charAt(i);
             if (symbol == '.') {
                 base = (base << Byte.SIZE) | part;
                 part = 0;
             } else {
-                part = part * 10 + symbol - '0';
+                part = part * DECIMAL_BASE + symbol - '0';
             }
         }
         return (int) ((base << Byte.SIZE) | part);
