@@ -4,6 +4,9 @@ import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
 import java.util.stream.Stream;
 
+/**
+ * Unique IPv4 addresses counter
+ */
 public class UniqueAddressCounter implements ToLongFunction<Stream<String>> {
 
     private final IntSet container;
