@@ -33,13 +33,13 @@ run {
 
 application {
     mainModule = 'ip.address.main'
-    mainClass = 'lv.id.jc.ipv4.Main'
+    mainClass = 'lv.id.jc.ipcounter.Main'
 }
 
 jar {
     manifest {
         attributes(
-                'Main-Class': 'lv.id.jc.ipv4.Main'
+                'Main-Class': 'lv.id.jc.ipcounter.Main'
         )
     }
 }
