@@ -1,11 +1,11 @@
-package lv.id.jc.ipv4;
+package lv.id.jc.ipcounter.impl;
 
-import java.util.function.ToIntFunction;
+import lv.id.jc.ipcounter.IpConverter;
 
 /**
- * Converts the string representation of an IPv4 address to an int number.
+ * A simple converter to transform an IPv4 address from string representation to int.
  */
-public class Ipv4ToIntConverter implements ToIntFunction<CharSequence> {
+public class SimpleConverter implements IpConverter {
     private static final int DECIMAL_BASE = 10;
 
     /**
@@ -18,7 +18,7 @@ public class Ipv4ToIntConverter implements ToIntFunction<CharSequence> {
         long base = 0;
         long part = 0;
 
-        for (int i  = 0; i < ipAddress.length(); ++i) {
+        for (int i = 0; i < ipAddress.length(); ++i) {
             char symbol = ipAddress.charAt(i);
             if (symbol == '.') {
                 base = (base << Byte.SIZE) | part;

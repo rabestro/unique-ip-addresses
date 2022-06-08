@@ -50,3 +50,5 @@ Tests can be run with the command:
 ./gradlew test
 ```
 
+## Solution description
+

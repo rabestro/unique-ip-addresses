@@ -1,4 +1,4 @@
-package lv.id.jc.ipv4
+package lv.id.jc.ipcounter
 
 import spock.lang.*
 

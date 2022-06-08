@@ -1,6 +1,6 @@
-package lv.id.jc.ipv4
+package lv.id.jc.ipcounter
 
-
+import lv.id.jc.ipcounter.impl.SimpleContainer
 import spock.lang.Issue
 import spock.lang.Narrative
 import spock.lang.Specification
@@ -9,20 +9,20 @@ import spock.lang.Title
 @Issue('1')
 @Title('IntSet')
 @Narrative('Container for storing a set of numbers')
-class IntSetTest extends Specification {
+class SimpleContainerTest extends Specification {
 
     def 'should count unique numbers'() {
         given:
-        def container = new IntSet()
+        def container = new SimpleContainer()
 
         expect: 'zero for an empty container'
-        container.size() == 0
+        container.count() == 0
 
         when: 'we add some int numbers'
         numbers.each { container.add it }
 
         then: 'it correctly counts unique numbers'
-        container.size() == expected
+        container.count() == expected
 
         where:
         numbers                                    | expected

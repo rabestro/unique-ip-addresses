@@ -1,18 +1,21 @@
-package lv.id.jc.ipv4
+package lv.id.jc.ipcounter
 
+import lv.id.jc.ipcounter.impl.SimpleContainer
+import lv.id.jc.ipcounter.impl.SimpleConverter
+import lv.id.jc.ipcounter.impl.SimpleCounter
 import spock.lang.Narrative
 import spock.lang.Specification
 import spock.lang.Title
 
 @Title('Unique Address Counter')
 @Narrative('Unique IPv4 addresses counter')
-class UniqueAddressCounterTest extends Specification {
-    def container = Mock IntSet
-    def converter = Mock Ipv4ToIntConverter
+class SimpleCounterTest extends Specification {
+    def container = Mock SimpleContainer
+    def converter = Mock SimpleConverter
 
     def 'should use container and converter to count unique IPv4 addresses'() {
         given: 'counter with mocked container and converter'
-        def counter = new UniqueAddressCounter(container, converter)
+        def counter = new SimpleCounter(container, converter)
 
         when: 'we use counter to process stream of ip addresses'
         counter.applyAsLong ip.stream()
@@ -24,7 +27,7 @@ class UniqueAddressCounterTest extends Specification {
         ip.size() * container.add(_)
 
         and: 'the calculation of unique numbers is called once'
-        1 * container.size()
+        1 * container.count()
 
         where:
         ip << [

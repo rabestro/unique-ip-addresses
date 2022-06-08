@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="lv.id.jc.ipv4.Main" />
-    <module name="ipv4.main" />
+    <option name="MAIN_CLASS_NAME" value="lv.id.jc.ipcounter.Main" />
+    <module name="ipcounter.main" />
     <option name="PROGRAM_PARAMETERS" value="C:\Users\jegors.cemisovs\Downloads\ip_addresses\ip_addresses" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="lv.id.jc.ipv4.*" />
+        <option name="PATTERN" value="lv.id.jc.ipcounter.IpContainer" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

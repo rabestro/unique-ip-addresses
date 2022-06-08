@@ -1,4 +1,8 @@
-package lv.id.jc.ipv4;
+package lv.id.jc.ipcounter;
+
+import lv.id.jc.ipcounter.impl.SimpleContainer;
+import lv.id.jc.ipcounter.impl.SimpleConverter;
+import lv.id.jc.ipcounter.impl.SimpleCounter;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,10 +29,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         var start = Instant.now();
 
-        var counter = new UniqueAddressCounter(
-                new IntSet(),
-                new Ipv4ToIntConverter()
-        );
+        var counter = new SimpleCounter(new SimpleContainer(), new SimpleConverter());
+
         try (var addresses = Files.lines(Path.of(args[0]))) {
             var result = counter.applyAsLong(addresses);
             System.out.println(result);

@@ -1,14 +1,15 @@
-package lv.id.jc.ipv4
+package lv.id.jc.ipcounter
 
+import lv.id.jc.ipcounter.impl.SimpleConverter
 import spock.lang.Specification
 import spock.lang.Title
 
 @Title('IPv4 Converter')
-class Ipv4ToIntConverterTest extends Specification {
+class SimpleConverterTest extends Specification {
 
     def 'should convert string representation of IPv4 to int'() {
         given:
-        def converter = new Ipv4ToIntConverter()
+        def converter = new SimpleConverter()
 
         when:
         def actual = converter.applyAsInt(ip)

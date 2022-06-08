@@ -3,6 +3,6 @@
  *
  * @author jegors.cemisovs
  */
-module ip.address.main {
-    exports lv.id.jc.ipv4;
+module ip.counter.main {
+    exports lv.id.jc.ipcounter;
 }
