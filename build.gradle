@@ -8,9 +8,20 @@ plugins {
 group 'lv.id.jc'
 version '1.0-SNAPSHOT'
 
+sourceSets {
+    jmh {
+        java.srcDirs = ['src/jmh/java']
+        resources.srcDirs = ['src/jmh/resources']
+        compileClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
 repositories {
     mavenCentral()
+    google()
 }
+
+configurations.jmhImplementation.extendsFrom(configurations.implementation)
 
 dependencies {
     // Spock Framework
@@ -22,6 +33,23 @@ dependencies {
     testRuntimeClasspath 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
     testImplementation 'org.slf4j:slf4j-api:1.7.36'
     testRuntimeClasspath 'org.slf4j:slf4j-simple:1.7.36'
+
+    // JMH benchmark
+    jmhImplementation 'org.openjdk.jmh:jmh-core:1.35'
+    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
+}
+
+task jmh(type: JavaExec, dependsOn: jmhClasses) {
+    description = "Executes JMH performance tests for ${project.name}."
+    main = 'org.openjdk.jmh.Main'
+    classpath = sourceSets.jmh.compileClasspath + sourceSets.jmh.runtimeClasspath
+
+    def resultFile = new File((File) project.reportsDir, 'jmh/result.json')
+
+    doFirst {
+        resultFile.parentFile.mkdirs()
+    }
+
 }
 
 // In order to run the application type the command:
@@ -80,5 +108,21 @@ sonarqube {
         property "sonar.projectKey", "rabestro_codereview-task1-ip-addresses"
         property "sonar.organization", "rabestro"
         property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+task jmhHelp(type: JavaExec) {
+    description = 'Prints the available command line options for JMH.'
+    main = 'org.openjdk.jmh.Main'
+    group = 'help'
+    classpath = sourceSets.jmh.runtimeClasspath
+    args '-h'
+}
+
+task printCp {
+    description = 'Prints the classpath of the \'jmh\' task.'
+    doLast {
+        logger.lifecycle('Classpath configured for \'jmh\' task:')
+        tasks.jmh.classpath.each { logger.lifecycle('  - ' + it.path) }
     }
 }

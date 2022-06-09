@@ -1,8 +1,6 @@
 package lv.id.jc.ipcounter;
 
-import lv.id.jc.ipcounter.impl.SimpleContainer;
-import lv.id.jc.ipcounter.impl.SimpleConverter;
-import lv.id.jc.ipcounter.impl.SimpleCounter;
+import lv.id.jc.ipcounter.collector.IPv4Collector;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,14 +24,15 @@ public class Main {
      * @throws IndexOutOfBoundsException if no arguments provided
      */
     @SuppressWarnings("squid:S106")
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         var start = Instant.now();
 
-        var counter = new SimpleCounter(new SimpleContainer(), new SimpleConverter());
-
-        try (var addresses = Files.lines(Path.of(args[0]))) {
-            var result = counter.applyAsLong(addresses);
-            System.out.println(result);
+        try (var lines = Files.lines(Path.of(args[0]))) {
+            System.out.println(
+                    lines.collect(IPv4Collector.countingUnique())
+            );
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
 
         System.out.println(Duration.between(start, Instant.now()));

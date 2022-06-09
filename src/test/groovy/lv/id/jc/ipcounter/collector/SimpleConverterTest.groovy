@@ -1,6 +1,6 @@
-package lv.id.jc.ipcounter
+package lv.id.jc.ipcounter.collector
 
-import lv.id.jc.ipcounter.impl.SimpleConverter
+
 import spock.lang.Specification
 import spock.lang.Title
 
@@ -9,7 +9,7 @@ class SimpleConverterTest extends Specification {
 
     def 'should convert string representation of IPv4 to int'() {
         given:
-        def converter = new SimpleConverter()
+        def converter = new IPv4SimpleConverter()
 
         when:
         def actual = converter.applyAsInt(ip)

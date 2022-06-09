@@ -1,13 +1,11 @@
-package lv.id.jc.ipcounter.impl;
-
-import lv.id.jc.ipcounter.IpContainer;
+package lv.id.jc.ipcounter.collector;
 
 import java.util.BitSet;
 
 /**
- * A simple container for storing a set of IPv4 addresses
+ * An implementation of {@link IntContainer} that uses two {@link BitSet} for storing set of int numbers.
  */
-public class SimpleContainer implements IpContainer {
+public class DoubleBitSetContainer implements IntContainer {
     private final BitSet[] storage = {new BitSet(), new BitSet()};
 
     @Override
@@ -19,8 +17,9 @@ public class SimpleContainer implements IpContainer {
         }
     }
 
+
     @Override
-    public long count() {
+    public long countUnique() {
         return (long) storage[0].cardinality() + storage[1].cardinality();
     }
 }

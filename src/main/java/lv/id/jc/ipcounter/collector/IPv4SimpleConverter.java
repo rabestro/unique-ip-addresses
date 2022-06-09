@@ -1,15 +1,12 @@
-package lv.id.jc.ipcounter.impl;
-
-import lv.id.jc.ipcounter.IpConverter;
+package lv.id.jc.ipcounter.collector;
 
 /**
  * A simple converter to transform an IPv4 address from string representation to int.
  */
-public class SimpleConverter implements IpConverter {
+public class IPv4SimpleConverter implements IPv4Converter {
     private static final int DECIMAL_BASE = 10;
 
     /**
-     *
      * @param ipAddress representation of an IPv4 address
      * @return int number representing the given address
      */
@@ -29,4 +26,5 @@ public class SimpleConverter implements IpConverter {
         }
         return (int) ((base << Byte.SIZE) | part);
     }
+
 }
