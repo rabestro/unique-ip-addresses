@@ -8,10 +8,14 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 
+import static java.lang.System.Logger.Level.ERROR;
+import static java.lang.System.Logger.Level.INFO;
+
 /**
  * Console application for counting unique addresses in a text file
  */
 public class Main {
+    private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
 
     /**
      * Application start point
@@ -21,21 +25,34 @@ public class Main {
      * prints the number of unique addresses in this file.
      *
      * @param args - path to the test file in the first argument
-     * @throws IndexOutOfBoundsException if no arguments provided
      */
     @SuppressWarnings("squid:S106")
     public static void main(String[] args) {
-        var start = Instant.now();
 
-        try (var lines = Files.lines(Path.of(args[0]))) {
-            System.out.println(
-                    lines.collect(IPv4Collector.countingUnique())
-            );
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        if (args.length != 1) {
+            System.out.println("Please specify only one argument - the path to the file with IP addresses");
+            LOGGER.log(ERROR, "Invalid number of arguments. One expected, provided: {0}", args.length);
+            return;
         }
+        var path = Path.of(args[0]);
 
-        System.out.println(Duration.between(start, Instant.now()));
+        var startTime = Instant.now();
+        LOGGER.log(INFO, "Execution start time: {0}", startTime);
+
+        process(path);
+
+        var executionTime = Duration.between(startTime, Instant.now());
+        LOGGER.log(INFO, "Computation time: {0}", executionTime);
     }
 
+    private static void process(Path path) {
+        try (var lines = Files.lines(path)) {
+
+            var uniqueIpAddress = lines.collect(IPv4Collector.countingUnique());
+
+            System.out.println(uniqueIpAddress);
+        } catch (IOException e) {
+            LOGGER.log(ERROR, "Error during processing file: {0}", path);
+        }
+    }
 }
