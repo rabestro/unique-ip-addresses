@@ -42,15 +42,15 @@ public class Main {
         process(path);
 
         var executionTime = Duration.between(startTime, Instant.now());
-        LOGGER.log(INFO, "Computation time: {0}", executionTime);
+        LOGGER.log(INFO, "Execution time: {0}", executionTime);
     }
 
     private static void process(Path path) {
         try (var lines = Files.lines(path)) {
 
-            var uniqueIpAddress = lines.collect(IPv4Collector.countingUnique());
+            var unique = lines.collect(IPv4Collector.countingUnique());
 
-            System.out.println(uniqueIpAddress);
+            System.out.println(unique);
         } catch (IOException e) {
             LOGGER.log(ERROR, "Error during processing file: {0}", path);
         }

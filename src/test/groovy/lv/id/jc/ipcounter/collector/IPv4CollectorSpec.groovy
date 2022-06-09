@@ -2,7 +2,6 @@ package lv.id.jc.ipcounter.collector
 
 import spock.lang.*
 
-@Issue('1')
 @Title('IPv4 Collector')
 @Narrative('Integration test for IPv4 Collector')
 @Subject([IPv4Collector, IPv4Converter, DoubleBitSetContainer])

@@ -50,5 +50,11 @@ Tests can be run with the command:
 ./gradlew test
 ```
 
+## Benchmarks
+
+```shell
+./gradlew jmh
+```
+
 ## Solution description
 
