@@ -10,7 +10,7 @@ plugins {
 }
 
 group 'lv.id.jc'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -44,7 +44,7 @@ run {
 }
 
 application {
-    mainModule = 'ip.address.main'
+    mainModule = 'ip.counter.main'
     mainClass = 'lv.id.jc.ipcounter.Main'
 }
 

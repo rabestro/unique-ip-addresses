@@ -30,13 +30,13 @@ To build the application you may use this command:
 This command creates executable jar, so on Linux/Mac you may run it by
 
 ```shell
-./build/libs/ipv4-1.0-SNAPSHOT.jar ../../ip_addresses
+./build/libs/ipcounter.jar ../../ip_addresses
 ```
 
 On Windows and also on Linux/Mac systems you can run it by the command:
 
 ```shell
-java -jar build\libs\ipv4-1.0-SNAPSHOT.jar C:\Users\jegors.cemisovs\Downloads\ip_addresses\ip_addresses
+java -jar build\libs\ipcounter.jar ip_addresses
 ```
 
 Please note, that in order to run the application you should specify a full path to the text file with IPv4 addresses. 
