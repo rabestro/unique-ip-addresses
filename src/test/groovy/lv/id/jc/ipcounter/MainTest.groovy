@@ -54,12 +54,4 @@ class MainTest extends Specification {
         expected << [1, 3, 4, 0]
     }
 
-    def 'should throw an exception if no file name specified'() {
-        when:
-        Main.main()
-
-        then:
-        thrown(IndexOutOfBoundsException)
-    }
-
 }
