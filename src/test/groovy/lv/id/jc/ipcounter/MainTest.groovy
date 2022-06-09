@@ -54,7 +54,7 @@ class MainTest extends Specification {
         expected << [1, 3, 4, 0]
     }
 
-    def 'test'() {
+    def 'should correctly read and process text files'() {
         when: 'we run the program with file name as parameter'
         Main.main fileName
 
