@@ -1,11 +1,12 @@
 package lv.id.jc.ipcounter.collector
 
-
+import spock.lang.Narrative
 import spock.lang.Specification
 import spock.lang.Title
 
 @Title('IPv4 Converter')
-class SimpleConverterTest extends Specification {
+@Narrative('A simple implementation of IPv4 converter')
+class IPv4SimpleConverterTest extends Specification {
 
     def 'should convert string representation of IPv4 to int'() {
         given:
@@ -25,6 +26,5 @@ class SimpleConverterTest extends Specification {
         '0.0.1.44' | 300
         '0.1.0.0'  | 65536
         '0.1.1.0'  | 65792
-
     }
 }
