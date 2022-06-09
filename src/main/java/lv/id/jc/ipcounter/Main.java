@@ -14,6 +14,7 @@ import static java.lang.System.Logger.Level.INFO;
 /**
  * Console application for counting unique addresses in a text file
  */
+@SuppressWarnings("squid:S106")
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
 
@@ -26,7 +27,6 @@ public class Main {
      *
      * @param args - path to the test file in the first argument
      */
-    @SuppressWarnings("squid:S106")
     public static void main(String[] args) {
 
         if (args.length != 1) {
