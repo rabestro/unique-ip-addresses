@@ -32,7 +32,7 @@ public class IPv4Collector implements Collector<CharSequence, IntContainer, Long
      */
     public static IPv4Collector countingUnique() {
         var converter = new IPv4SimpleConverter();
-        return new IPv4Collector(LongArrayContainer::new, converter);
+        return new IPv4Collector(DualBitSetContainer::new, converter);
     }
 
     @Override
