@@ -25,6 +25,20 @@ class MainTest extends Specification {
         System.out = originalOut
     }
 
+    def 'should check number of arguments'() {
+        when: 'we run the program without any arguments'
+        Main.main()
+
+        then: 'we got an error message'
+        out =~ /Please specify one argument/
+
+        when: 'we run the program with more then one argument'
+        Main.main('one', 'two')
+
+        then: 'we got an error message'
+        out =~ /Please specify one argument/
+    }
+
     def 'should count unique IPv4 addresses'() {
         given: 'a text file with IPv4 addresses'
         def sourcePath = temp.resolve 'ip.txt'

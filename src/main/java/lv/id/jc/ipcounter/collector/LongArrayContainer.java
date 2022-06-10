@@ -2,6 +2,9 @@ package lv.id.jc.ipcounter.collector;
 
 import java.util.Arrays;
 
+/**
+ * An implementation of {@link IntContainer} optimized to store a huge amount of int numbers.
+ */
 public class LongArrayContainer implements IntContainer {
     private static final int VALUE_SIZE = 6;
     private static final int INDEX_MASK = 0xFFFFFFC0;

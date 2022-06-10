@@ -30,7 +30,7 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length != 1) {
-            System.out.println("Please specify only one argument - the path to the file with IP addresses");
+            System.out.println("Please specify one argument - the path to the file with IP addresses");
             LOGGER.log(ERROR, "Invalid number of arguments. One expected, provided: {0}", args.length);
             return;
         }
