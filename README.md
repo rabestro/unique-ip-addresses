@@ -56,5 +56,22 @@ Tests can be run with the command:
 ./gradlew jmh
 ```
 
+### Benchmark results for containers
+
+```text
+Benchmark                               (amount)  Mode  Cnt   Score   Error  Units
+ContainerBenchmark.dualBitSetContainer        1B  avgt    5  20.188 ± 1.211   s/op
+ContainerBenchmark.dualBitSetContainer        1M  avgt    5   0.053 ± 0.002   s/op
+ContainerBenchmark.dualBitSetContainer        1K  avgt    5   0.034 ± 0.001   s/op
+ContainerBenchmark.longArrayContainer         1B  avgt    5  13.943 ± 0.336   s/op
+ContainerBenchmark.longArrayContainer         1M  avgt    5   0.093 ± 0.005   s/op
+ContainerBenchmark.longArrayContainer         1K  avgt    5   0.080 ± 0.002   s/op
+```
+
 ## Solution description
 
+A custom collector is used to count unique addresses. This collector can be configured to be used with different containers to store unique addresses.
+
+The project has two container implementations:
+- DualBitSetContainer
+- LongArrayContainer
