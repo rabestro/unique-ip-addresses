@@ -5,7 +5,7 @@ import java.util.BitSet;
 /**
  * An implementation of {@link IntContainer} that uses two {@link BitSet} for storing set of int numbers.
  */
-public class DoubleBitSetContainer implements IntContainer {
+public class DualBitSetContainer implements IntContainer {
     private final BitSet[] storage = {new BitSet(), new BitSet()};
 
     @Override

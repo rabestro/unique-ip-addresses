@@ -65,8 +65,9 @@ class MainTest extends Specification {
         result == expected
 
         where: 'name of text file in test resources'
-        name  | expected
-        'two' | 2
+        name      | expected
+        'two'     | 2
+        'hundred' | 100
 
         and:
         fileName = getClass().getResource("/${name}.txt").path

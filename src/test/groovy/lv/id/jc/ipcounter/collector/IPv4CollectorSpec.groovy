@@ -4,7 +4,7 @@ import spock.lang.*
 
 @Title('IPv4 Collector')
 @Narrative('Integration test for IPv4 Collector')
-@Subject([IPv4Collector, IPv4Converter, DoubleBitSetContainer])
+@Subject([IPv4Collector, IPv4Converter, DualBitSetContainer])
 class IPv4CollectorSpec extends Specification {
 
     def 'should count unique IPv4 addresses'() {
