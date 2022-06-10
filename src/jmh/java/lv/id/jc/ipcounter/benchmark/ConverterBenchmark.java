@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Warmup(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
-public class IpConverterBenchmark {
+public class ConverterBenchmark {
     private final IPv4Converter converter = new IPv4SimpleConverter();
 
     @Param({"1.2.3.4", "120.1.34.78", "129.205.201.114"})

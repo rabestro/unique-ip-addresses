@@ -54,22 +54,4 @@ class MainTest extends Specification {
         expected << [1, 3, 4, 0]
     }
 
-    def 'should correctly read and process text files'() {
-        when: 'we run the program with file name as parameter'
-        Main.main fileName
-
-        and: 'the program prints unique number of ip addresses'
-        def result = new Scanner(out.toString()).nextInt()
-
-        then: 'the result as expected'
-        result == expected
-
-        where: 'name of text file in test resources'
-        name      | expected
-        'two'     | 2
-        'hundred' | 100
-
-        and:
-        fileName = getClass().getResource("/${name}.txt").path
-    }
 }

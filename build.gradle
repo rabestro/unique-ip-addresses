@@ -61,7 +61,7 @@ test {
     finalizedBy jacocoTestReport
 
     systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
-    systemProperty 'com.athaydes.spockframework.report.projectName', 'Learning Progress Tracker'
+    systemProperty 'com.athaydes.spockframework.report.projectName', 'IPv4 Counter'
     systemProperty 'com.athaydes.spockframework.report.projectVersion', 1.0
 }
 
