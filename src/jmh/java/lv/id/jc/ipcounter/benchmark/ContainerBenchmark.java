@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.Arrays.stream;
+
 @Fork(1)
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
@@ -27,7 +29,8 @@ import java.util.concurrent.TimeUnit;
 @Warmup(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 5, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 public class ContainerBenchmark {
-    private final IntContainer bitSetContainer = new BitSetContainer(1);
+    private final IntContainer dualBitSetContainer = new DualBitSetContainer();
+    private final IntContainer level1Container = new BitSetContainer(1);
     private final IntContainer level8Container = new BitSetContainer(8);
     private final IntContainer arrayContainer = new LongArrayContainer();
 
@@ -52,25 +55,25 @@ public class ContainerBenchmark {
 
     @Benchmark
     public long dualBitSetContainer() {
-        for (int number : data.get(amount)) {
-            bitSetContainer.add(number);
-        }
-        return bitSetContainer.countUnique();
+        stream(data.get(amount)).forEach(dualBitSetContainer::add);
+        return dualBitSetContainer.countUnique();
+    }
+
+    @Benchmark
+    public long bitSetContainer() {
+        stream(data.get(amount)).forEach(level1Container::add);
+        return level1Container.countUnique();
     }
 
     @Benchmark
     public long level8Container() {
-        for (int number : data.get(amount)) {
-            level8Container.add(number);
-        }
+        stream(data.get(amount)).forEach(level8Container::add);
         return level8Container.countUnique();
     }
 
     @Benchmark
     public long longArrayContainer() {
-        for (int number : data.get(amount)) {
-            arrayContainer.add(number);
-        }
+        stream(data.get(amount)).forEach(arrayContainer::add);
         return arrayContainer.countUnique();
     }
 }

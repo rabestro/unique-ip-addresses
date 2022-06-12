@@ -14,7 +14,7 @@ public class BitSetContainer implements IntContainer {
     private final BitSet[] storage;
     private final int valueMask;
     private final int indexMask;
-    private final int level;
+    private final int shift;
 
     /**
      * Create a new container with the desired configuration
@@ -27,7 +27,7 @@ public class BitSetContainer implements IntContainer {
         valueMask = 0xFFFF_FFFF >>> level;
         indexMask = ~valueMask;
 
-        this.level = level;
+        this.shift = Integer.SIZE - level;
         this.storage = Stream.generate(BitSet::new)
                 .limit(1L << level)
                 .toArray(BitSet[]::new);
@@ -35,7 +35,7 @@ public class BitSetContainer implements IntContainer {
 
     @Override
     public void add(int number) {
-        int index = (number & indexMask) >>> (Integer.SIZE - level);
+        int index = (number & indexMask) >>> shift;
         int value = 1 << (number & valueMask);
         storage[index].set(--value);
     }

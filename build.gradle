@@ -18,7 +18,7 @@ repositories {
 }
 
 //tasks.withType(JavaExec) {
-//    jvmArgs = ['-Xmx2000m', '-Xms600m']
+//    jvmArgs = ['-Xmx4000m', '-Xms2000m']
 //}
 
 configurations.jmhImplementation.extendsFrom(configurations.implementation)
@@ -44,6 +44,7 @@ dependencies {
 // ./gradlew run -q --console=plain --args="ip_addresses"
 
 run {
+
     standardInput = System.in
 }
 
@@ -61,8 +62,8 @@ jar {
 }
 
 test {
-    minHeapSize = "800m"
-    maxHeapSize = "2000m"
+    minHeapSize = '800m'
+    maxHeapSize = '2000m'
 
     useJUnitPlatform()
     finalizedBy jacocoTestReport
