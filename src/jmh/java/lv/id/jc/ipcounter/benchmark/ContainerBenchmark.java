@@ -1,5 +1,6 @@
 package lv.id.jc.ipcounter.benchmark;
 
+import lv.id.jc.ipcounter.collector.BitSetContainer;
 import lv.id.jc.ipcounter.collector.DualBitSetContainer;
 import lv.id.jc.ipcounter.collector.IntContainer;
 import lv.id.jc.ipcounter.collector.LongArrayContainer;
@@ -26,7 +27,8 @@ import java.util.concurrent.TimeUnit;
 @Warmup(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 5, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 public class ContainerBenchmark {
-    private final IntContainer bitSetContainer = new DualBitSetContainer();
+    private final IntContainer bitSetContainer = new BitSetContainer(1);
+    private final IntContainer level8Container = new BitSetContainer(8);
     private final IntContainer arrayContainer = new LongArrayContainer();
 
     @Param({"1B", "1M", "1K"})
@@ -54,6 +56,14 @@ public class ContainerBenchmark {
             bitSetContainer.add(number);
         }
         return bitSetContainer.countUnique();
+    }
+
+    @Benchmark
+    public long level8Container() {
+        for (int number : data.get(amount)) {
+            level8Container.add(number);
+        }
+        return level8Container.countUnique();
     }
 
     @Benchmark

@@ -17,6 +17,10 @@ repositories {
     google()
 }
 
+//tasks.withType(JavaExec) {
+//    jvmArgs = ['-Xmx2000m', '-Xms600m']
+//}
+
 configurations.jmhImplementation.extendsFrom(configurations.implementation)
 
 dependencies {
@@ -26,9 +30,9 @@ dependencies {
     testImplementation 'org.spockframework:spock-core'
 
     // Spock Reports
-    testRuntimeClasspath 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
+    testRuntimeOnly 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
     testImplementation 'org.slf4j:slf4j-api:1.7.36'
-    testRuntimeClasspath 'org.slf4j:slf4j-simple:1.7.36'
+    testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.36'
 
     // JMH benchmark
     jmh 'org.openjdk.jmh:jmh-core:1.35'
@@ -37,7 +41,7 @@ dependencies {
 }
 
 // In order to run the application type the command:
-// ./gradlew run -q --console=plain
+// ./gradlew run -q --console=plain --args="ip_addresses"
 
 run {
     standardInput = System.in
@@ -57,6 +61,9 @@ jar {
 }
 
 test {
+    minHeapSize = "800m"
+    maxHeapSize = "2000m"
+
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 

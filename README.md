@@ -19,27 +19,29 @@ The file size is not limited and can take tens and hundreds of gigabytes.
 
 Your task is to count the number of unique addresses in this file, spending as little memory and time as possible.
 
+You can download a sample file [here](https://ecwid-vgv-storage.s3.eu-central-1.amazonaws.com/ip_addresses.zip). The file is zipped, and you should unzip it before processing. Please note that the size of unzipped file is about 120Gb.
+
 ## How to build and run the project
 
-To build the application you may use this command:
+To build the application you may use this command (Linux/MacOS):
 
 ```shell
 ./gradlew assemble
 ```
 
-This command creates executable jar, so on Linux/Mac you may run it by
+To run using gradle please use a command:
 
 ```shell
-./build/libs/ipcounter.jar ../../ip_addresses
+./gradlew run -q --console=plain --args="ip_addresses"
 ```
 
-On Windows and also on Linux/Mac systems you can run it by the command:
+Alternatively, you can run the program using the command:
 
 ```shell
 java -jar build\libs\ipcounter.jar ip_addresses
 ```
 
-Please note, that in order to run the application you should specify a full path to the text file with IPv4 addresses. 
+Please note that to run the application, you should replace `ip_addresses` with a full path to the source text file with IPv4 addresses.
 
 ## Run test
 

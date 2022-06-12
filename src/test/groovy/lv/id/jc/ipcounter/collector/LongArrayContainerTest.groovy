@@ -9,7 +9,7 @@ import spock.lang.Title
 @Narrative('IntContainer implementation optimized for large amount of int numbers')
 class LongArrayContainerTest extends Specification {
 
-    @Ignore('Test crashes due to test framework heap memory configuration issues')
+//    @Ignore('Test crashes due to test framework heap memory configuration issues')
     def 'should count unique numbers'() {
         given: 'an empty int container'
         def container = new LongArrayContainer()
