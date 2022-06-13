@@ -1,5 +1,10 @@
 package lv.id.jc.ipcounter.collector;
 
+import lv.id.jc.ipcounter.container.IntContainer;
+import lv.id.jc.ipcounter.container.LongArrayContainer;
+import lv.id.jc.ipcounter.converter.IPv4Converter;
+import lv.id.jc.ipcounter.converter.IPv4SimpleConverter;
+
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -17,7 +22,7 @@ public class IPv4Collector implements Collector<CharSequence, IntContainer, Long
     /**
      * Collector constructor with the ability to set a custom container and converter.
      *
-     * @param supplier for int numbers container
+     * @param supplier  for int numbers container
      * @param converter to transform an IPv4 address from string representation to int
      */
     public IPv4Collector(Supplier<IntContainer> supplier, IPv4Converter converter) {
@@ -31,8 +36,10 @@ public class IPv4Collector implements Collector<CharSequence, IntContainer, Long
      * @return collector with default container and converter.
      */
     public static IPv4Collector countingUnique() {
-        var converter = new IPv4SimpleConverter();
-        return new IPv4Collector(LongArrayContainer::new, converter);
+        return new IPv4Collector(
+                LongArrayContainer::new,
+                new IPv4SimpleConverter()
+        );
     }
 
     @Override

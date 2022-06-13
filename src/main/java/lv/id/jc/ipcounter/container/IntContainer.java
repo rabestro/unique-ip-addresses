@@ -1,8 +1,8 @@
-package lv.id.jc.ipcounter.collector;
+package lv.id.jc.ipcounter.container;
 
 /**
  * Collection for storing a set of int numbers.
- *
+ * <p>
  * Implemented the minimum required number of methods
  * for solving the problem of counting unique numbers.
  */

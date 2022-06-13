@@ -1,4 +1,4 @@
-package lv.id.jc.ipcounter.collector;
+package lv.id.jc.ipcounter.converter;
 
 /**
  * A simple converter to transform an IPv4 address from string representation to int.

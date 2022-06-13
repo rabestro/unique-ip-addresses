@@ -1,7 +1,7 @@
 package lv.id.jc.ipcounter.benchmark;
 
-import lv.id.jc.ipcounter.collector.IPv4Converter;
-import lv.id.jc.ipcounter.collector.IPv4SimpleConverter;
+import lv.id.jc.ipcounter.converter.IPv4Converter;
+import lv.id.jc.ipcounter.converter.IPv4SimpleConverter;
 import org.openjdk.jmh.annotations.*;
 
 import java.net.InetAddress;

@@ -1,4 +1,4 @@
-package lv.id.jc.ipcounter.collector;
+package lv.id.jc.ipcounter.container;
 
 import java.util.Arrays;
 

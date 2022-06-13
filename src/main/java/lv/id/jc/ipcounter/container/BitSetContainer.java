@@ -1,52 +1,47 @@
-package lv.id.jc.ipcounter.collector;
+package lv.id.jc.ipcounter.container;
 
-import java.util.Arrays;
 import java.util.BitSet;
-import java.util.stream.Stream;
 
+import static java.util.Arrays.stream;
 import static java.util.Objects.checkIndex;
+import static java.util.stream.Stream.generate;
 
 /**
  * An implementation of {@link IntContainer} that created
  * an array of {@link BitSet} for storing set of int numbers.
- *
+ * <p>
  * This implementation allocates the necessary memory dynamically, as needed.
  * Therefore, if we have a set of IP addresses from only one or several
  * specific subnets, this implementation can give a significant gain in memory usage.
  */
 public class BitSetContainer implements IntContainer {
     private final BitSet[] storage;
-    private final int valueMask;
-    private final int indexMask;
+    private final int mask;
     private final int shift;
 
     /**
-     * Create a new container with the desired configuration
+     * Create a new container with the desired configuration.
      *
      * @param level - the number of leading bits of the number that we will use
      *              to determine the index of the cell with bitset.
      *              Valid values are from 1 to 16 ({@code Byte.SIZE * 2}).
+     * @throws IndexOutOfBoundsException if level outside the range 1..16
      */
     public BitSetContainer(int level) {
         checkIndex(level - 1, Byte.SIZE * 2);
-        valueMask = 0xFFFF_FFFF >>> level;
-        indexMask = ~valueMask;
 
-        this.shift = Integer.SIZE - level;
-        this.storage = Stream.generate(BitSet::new)
-                .limit(1L << level)
-                .toArray(BitSet[]::new);
+        mask = 0xFFFF_FFFF >>> level;
+        shift = Integer.SIZE - level;
+        storage = generate(BitSet::new).limit(1L << level).toArray(BitSet[]::new);
     }
 
     @Override
-    public void add(int number) {
-        int index = (number & indexMask) >>> shift;
-        int value = number & valueMask;
-        storage[index].set(value);
+    public void add(int ip) {
+        storage[ip >>> shift].set(ip & mask);
     }
 
     @Override
     public long countUnique() {
-        return Arrays.stream(storage).mapToLong(BitSet::cardinality).sum();
+        return stream(storage).mapToLong(BitSet::cardinality).sum();
     }
 }

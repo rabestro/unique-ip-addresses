@@ -1,6 +1,11 @@
 package lv.id.jc.ipcounter.collector
 
-import spock.lang.*
+import lv.id.jc.ipcounter.container.DualBitSetContainer
+import lv.id.jc.ipcounter.converter.IPv4Converter
+import spock.lang.Narrative
+import spock.lang.Specification
+import spock.lang.Subject
+import spock.lang.Title
 
 @Title('IPv4 Collector')
 @Narrative('Integration test for IPv4 Collector')

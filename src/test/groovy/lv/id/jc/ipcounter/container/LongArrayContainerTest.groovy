@@ -1,6 +1,6 @@
-package lv.id.jc.ipcounter.collector
+package lv.id.jc.ipcounter.container
 
-import spock.lang.Ignore
+
 import spock.lang.Narrative
 import spock.lang.Specification
 import spock.lang.Title
@@ -27,16 +27,17 @@ class LongArrayContainerTest extends Specification {
         System.gc()
 
         where:
-        numbers                                    | expected
-        []                                         | 0
-        [0]                                        | 1
-        [12]                                       | 1
-        [1, 1, 2]                                  | 2
-        [1, 1]                                     | 1
-        [-1, 0, 1]                                 | 3
-        [Integer.MIN_VALUE, 0, Integer.MAX_VALUE]  | 3
-        [-9, -7, -3, -9, 0, 1, -3, 0, 5, 9, 5]     | 7
-        [3, 7, 3, 7, 3, 7, 7, 7, 3, 3, 3, 3, 7, 7] | 2
-        [-1, 0, 1, 3, 4, 6, 7, 8, 9, 10, 11, 12]   | 12
+        numbers                                         | expected
+        []                                              | 0
+        [0]                                             | 1
+        [12]                                            | 1
+        [1, 1, 2]                                       | 2
+        [1, 1]                                          | 1
+        [-1, 0, 1]                                      | 3
+        [Integer.MIN_VALUE, 0, Integer.MAX_VALUE]       | 3
+        [-9, -7, -3, -9, 0, 1, -3, 0, 5, 9, 5]          | 7
+        [3, 7, 3, 7, 3, 7, 7, 7, 3, 3, 3, 3, 7, 7]      | 2
+        [-128_984, -2_098_321_032, 143, 0, 213_219_872] | 5
+        [-1, 0, 1, 3, 4, 6, 7, 8, 9, 10, 11, 12]        | 12
     }
 }

@@ -1,4 +1,4 @@
-package lv.id.jc.ipcounter.collector;
+package lv.id.jc.ipcounter.converter;
 
 import java.util.function.ToIntFunction;
 

@@ -1,9 +1,9 @@
 package lv.id.jc.ipcounter.benchmark;
 
-import lv.id.jc.ipcounter.collector.BitSetContainer;
-import lv.id.jc.ipcounter.collector.DualBitSetContainer;
-import lv.id.jc.ipcounter.collector.IntContainer;
-import lv.id.jc.ipcounter.collector.LongArrayContainer;
+import lv.id.jc.ipcounter.container.BitSetContainer;
+import lv.id.jc.ipcounter.container.DualBitSetContainer;
+import lv.id.jc.ipcounter.container.IntContainer;
+import lv.id.jc.ipcounter.container.LongArrayContainer;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;

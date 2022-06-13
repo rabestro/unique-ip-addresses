@@ -1,12 +1,13 @@
-package lv.id.jc.ipcounter.collector;
+package lv.id.jc.ipcounter.container;
 
 import java.util.BitSet;
 
 /**
  * An implementation of {@link IntContainer} that uses two {@link BitSet} for storing of int numbers.
- *
- * This implementation is a special case of more general {@link BitSetContainer}
- * with level 1 and equals to {@code new BitSetContainer(1)}.
+ * <p>
+ * This implementation is a slightly more performant version
+ * of a special case of a more general {@link BitSetContainer}
+ * implementation and equals to {@code new BitSetContainer(1)}.
  */
 public class DualBitSetContainer implements IntContainer {
     private final BitSet[] storage = {new BitSet(), new BitSet()};
@@ -19,7 +20,6 @@ public class DualBitSetContainer implements IntContainer {
             storage[1].set(-++i);
         }
     }
-
 
     @Override
     public long countUnique() {

@@ -1,15 +1,16 @@
 package lv.id.jc.ipcounter;
 
-import lv.id.jc.ipcounter.collector.IPv4Collector;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 import static java.lang.System.Logger.Level.ERROR;
 import static java.lang.System.Logger.Level.INFO;
+import static lv.id.jc.ipcounter.collector.IPv4Collector.countingUnique;
 
 /**
  * Console application for counting unique addresses in a text file
@@ -17,6 +18,10 @@ import static java.lang.System.Logger.Level.INFO;
 @SuppressWarnings("squid:S106")
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
+
+    private static final Predicate<String> IPv4_VALIDATOR = Pattern
+            .compile("^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)(\\.(?!$)|$)){4}$")
+            .asMatchPredicate();
 
     /**
      * Application start point
@@ -48,9 +53,12 @@ public class Main {
     private static void process(Path path) {
         try (var lines = Files.lines(path)) {
 
-            var unique = lines.collect(IPv4Collector.countingUnique());
+            var unique = lines
+                    .filter(IPv4_VALIDATOR) // if no validation required this line should be deleted
+                    .collect(countingUnique());
 
             System.out.println(unique);
+
         } catch (IOException e) {
             LOGGER.log(ERROR, "Error during processing file: {0}", path);
         }

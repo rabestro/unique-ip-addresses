@@ -1,6 +1,6 @@
 package lv.id.jc.ipcounter.collector
 
-import spock.lang.Narrative
+import lv.id.jc.ipcounter.container.IntContainer
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title

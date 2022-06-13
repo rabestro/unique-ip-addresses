@@ -1,4 +1,5 @@
-package lv.id.jc.ipcounter.collector
+package lv.id.jc.ipcounter.converter
+
 
 import spock.lang.Narrative
 import spock.lang.Specification
