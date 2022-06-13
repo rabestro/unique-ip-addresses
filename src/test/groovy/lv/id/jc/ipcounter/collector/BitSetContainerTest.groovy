@@ -32,6 +32,7 @@ class BitSetContainerTest extends Specification {
         1     | [Integer.MIN_VALUE, -1, 0, 1, Integer.MAX_VALUE] | 5
         1     | [-9, -7, -3, -9, 0, 1, -3, 0, 5, 9, 5]           | 7
         1     | [-1, 0, 1, 3, 4, 6, 7, 8, 9, 10, 11, 12]         | 12
+        1     | [-128_984, -2_098_321_032, 143, 0, 213_219_872]  | 5
         2     | []                                               | 0
         2     | [0]                                              | 1
         2     | [1]                                              | 1

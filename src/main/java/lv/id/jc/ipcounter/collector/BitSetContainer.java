@@ -9,6 +9,10 @@ import static java.util.Objects.checkIndex;
 /**
  * An implementation of {@link IntContainer} that created
  * an array of {@link BitSet} for storing set of int numbers.
+ *
+ * This implementation allocates the necessary memory dynamically, as needed.
+ * Therefore, if we have a set of IP addresses from only one or several
+ * specific subnets, this implementation can give a significant gain in memory usage.
  */
 public class BitSetContainer implements IntContainer {
     private final BitSet[] storage;
@@ -37,8 +41,8 @@ public class BitSetContainer implements IntContainer {
     @Override
     public void add(int number) {
         int index = (number & indexMask) >>> shift;
-        int value = 1 << (number & valueMask);
-        storage[index].set(--value);
+        int value = number & valueMask;
+        storage[index].set(value);
     }
 
     @Override

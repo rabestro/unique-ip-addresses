@@ -60,7 +60,7 @@ public class ContainerBenchmark {
     }
 
     @Benchmark
-    public long bitSetContainer() {
+    public long level1Container() {
         stream(data.get(amount)).forEach(level1Container::add);
         return level1Container.countUnique();
     }
