@@ -5,8 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 import static java.lang.System.Logger.Level.ERROR;
 import static java.lang.System.Logger.Level.INFO;
@@ -18,10 +16,6 @@ import static lv.id.jc.ipcounter.collector.IPv4Collector.countingUnique;
 @SuppressWarnings("squid:S106")
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
-
-    private static final Predicate<String> IPv4_VALIDATOR = Pattern
-            .compile("^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)(\\.(?!$)|$)){4}$")
-            .asMatchPredicate();
 
     /**
      * Application start point
@@ -53,9 +47,7 @@ public class Main {
     private static void process(Path path) {
         try (var lines = Files.lines(path)) {
 
-            var unique = lines
-                    .filter(IPv4_VALIDATOR) // if no validation required this line should be deleted
-                    .collect(countingUnique());
+            var unique = lines.collect(countingUnique());
 
             System.out.println(unique);
 

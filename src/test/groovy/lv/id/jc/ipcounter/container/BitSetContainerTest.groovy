@@ -8,6 +8,7 @@ import spock.lang.Title
 @Title('BitSetContainer')
 @Narrative('Configurable Container for storing a set of int numbers')
 class BitSetContainerTest extends Specification {
+
     def 'should count unique numbers'() {
         given: 'an empty int container with configured level'
         def container = new BitSetContainer(level)
