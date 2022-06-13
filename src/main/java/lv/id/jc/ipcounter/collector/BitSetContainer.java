@@ -20,7 +20,8 @@ public class BitSetContainer implements IntContainer {
      * Create a new container with the desired configuration
      *
      * @param level - the number of leading bits of the number that we will use
-     *              to determine the index of the cell with bitset. Valid values are from 1 to 8.
+     *              to determine the index of the cell with bitset.
+     *              Valid values are from 1 to 16 ({@code Byte.SIZE * 2}).
      */
     public BitSetContainer(int level) {
         checkIndex(level - 1, Byte.SIZE * 2);

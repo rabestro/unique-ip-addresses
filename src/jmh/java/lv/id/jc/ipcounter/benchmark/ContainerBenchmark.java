@@ -31,7 +31,7 @@ import static java.util.Arrays.stream;
 public class ContainerBenchmark {
     private final IntContainer dualBitSetContainer = new DualBitSetContainer();
     private final IntContainer level1Container = new BitSetContainer(1);
-    private final IntContainer level8Container = new BitSetContainer(8);
+    private final IntContainer level8Container = new BitSetContainer(Byte.SIZE);
     private final IntContainer arrayContainer = new LongArrayContainer();
 
     @Param({"1B", "1M", "1K"})

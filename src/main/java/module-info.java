@@ -5,4 +5,5 @@
  */
 module ip.counter.main {
     exports lv.id.jc.ipcounter;
+    exports lv.id.jc.ipcounter.collector;
 }
