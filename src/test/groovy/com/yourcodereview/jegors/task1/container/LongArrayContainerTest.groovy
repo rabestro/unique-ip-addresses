@@ -22,9 +22,6 @@ class LongArrayContainerTest extends Specification {
         then: 'it correctly counts unique numbers'
         container.countUnique() == expected
 
-        cleanup:
-        System.gc()
-
         where:
         numbers                                         | expected
         []                                              | 0

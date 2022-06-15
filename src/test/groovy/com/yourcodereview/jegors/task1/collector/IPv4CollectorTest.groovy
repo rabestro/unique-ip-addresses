@@ -23,7 +23,7 @@ class IPv4CollectorTest extends Specification {
         then:
         def ex = thrown(UnsupportedOperationException)
         and:
-        ex.getMessage() =~ "(is not|isn't) implemented"
+        ex.message =~ "(is not|isn't) implemented"
     }
 
     def 'should have proper characteristics'() {
