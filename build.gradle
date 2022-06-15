@@ -44,7 +44,6 @@ dependencies {
 // ./gradlew run -q --console=plain --args="ip_addresses"
 
 run {
-
     standardInput = System.in
 }
 

@@ -33,15 +33,13 @@ public class ContainerBenchmark {
     private final IntContainer level1Container = new BitSetContainer(1);
     private final IntContainer level8Container = new BitSetContainer(Byte.SIZE);
     private final IntContainer arrayContainer = new LongArrayContainer();
-
+    @Param({"1B", "1M", "1K", "1m"})
+    public String amount;
     private Map<String, int[]> data;
 
     private int[] generate(int amount) {
         return current().ints(amount).toArray();
     }
-
-    @Param({"1B", "1M", "1K", "1m"})
-    public String amount;
 
     @Setup
     public void generateTestData() {
