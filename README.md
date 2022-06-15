@@ -75,8 +75,8 @@ ContainerBenchmark.longArrayContainer         1K  avgt    5   0.080 ± 0.002   s
 A custom collector is used to count unique addresses. This collector can be configured to be used with different containers to store unique addresses.
 
 The project has two general container implementations:
-- BitSetContainer
-- LongArrayContainer
+-   BitSetContainer
+-   LongArrayContainer
 
 The class DualBitSetContainer was my very first solution for the task and represent a special case of BitSetContainer with level equals 1. 
 
