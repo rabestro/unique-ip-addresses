@@ -4,8 +4,8 @@
  * @author Jegors Čemisovs
  */
 module ip.counter.main {
-    exports lv.id.jc.ipcounter;
-    exports lv.id.jc.ipcounter.collector;
-    exports lv.id.jc.ipcounter.converter;
-    exports lv.id.jc.ipcounter.container;
+    exports com.yourcodereview.jegors.task1;
+    exports com.yourcodereview.jegors.task1.collector;
+    exports com.yourcodereview.jegors.task1.converter;
+    exports com.yourcodereview.jegors.task1.container;
 }
