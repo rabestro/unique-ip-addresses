@@ -79,4 +79,3 @@ The project has two general container implementations:
 -   LongArrayContainer
 
 The class DualBitSetContainer was my very first solution for the task and represent a special case of BitSetContainer with level equals 1. 
-
