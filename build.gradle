@@ -1,0 +1,103 @@
+plugins {
+    id 'groovy'
+    id 'application'
+    id 'jacoco'
+    id "org.sonarqube" version "3.3"
+
+    // JMH Gradle Plugin
+    // https://github.com/melix/jmh-gradle-plugin
+    id "me.champeau.jmh" version "0.6.6"
+}
+
+group 'lv.id.jc'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    google()
+}
+
+//tasks.withType(JavaExec) {
+//    jvmArgs = ['-Xmx4000m', '-Xms2000m']
+//}
+
+configurations.jmhImplementation.extendsFrom(configurations.implementation)
+
+dependencies {
+    // Spock Framework
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
+    testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+    testImplementation 'org.spockframework:spock-core'
+
+    // Spock Reports
+    testRuntimeOnly 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
+    testImplementation 'org.slf4j:slf4j-api:1.7.36'
+    testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.36'
+
+    // JMH benchmark
+    jmh 'org.openjdk.jmh:jmh-core:1.35'
+    jmh 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
+    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.35'
+}
+
+// In order to run the application type the command:
+// ./gradlew run -q --console=plain --args="ip_addresses"
+
+run {
+    standardInput = System.in
+}
+
+application {
+    mainModule = 'ip.counter.main'
+    mainClass = 'lv.id.jc.ipcounter.Main'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'lv.id.jc.ipcounter.Main'
+        )
+    }
+}
+
+test {
+    minHeapSize = '800m'
+    maxHeapSize = '2000m'
+
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+
+    systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
+    systemProperty 'com.athaydes.spockframework.report.projectName', 'IPv4 Counter'
+    systemProperty 'com.athaydes.spockframework.report.projectVersion', 1.0
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "**/config/*"
+            ])
+        }))
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "rabestro_codereview-task1-ip-addresses"
+        property "sonar.organization", "rabestro"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
