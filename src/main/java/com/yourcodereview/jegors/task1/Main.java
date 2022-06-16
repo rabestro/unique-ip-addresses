@@ -9,8 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.function.BiConsumer;
-import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 import static java.lang.System.Logger.Level.ERROR;
@@ -22,7 +20,6 @@ import static java.lang.System.Logger.Level.INFO;
 @SuppressWarnings("squid:S106")
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
-    private static final ToIntFunction<CharSequence> IPV4_CONVERTER = new IPv4Converter();
 
     /**
      * Application start point
