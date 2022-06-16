@@ -15,11 +15,7 @@ Given a simple text file with IPv4 addresses. One line - one address, like this:
 3.45.71.5
 ...
 ```
-The file size is not limited and can take tens and hundreds of gigabytes.
-
-Your task is to count the number of unique addresses in this file, spending as little memory and time as possible.
-
-You can download a sample file [here](https://ecwid-vgv-storage.s3.eu-central-1.amazonaws.com/ip_addresses.zip). The file is zipped, and you should unzip it before processing. Please note that the size of unzipped file is about 120Gb.
+The file size is not limited and can take tens and hundreds of gigabytes. Your task is to count the number of unique addresses in this file, spending as little memory and time as possible. You can download a sample file [here](https://ecwid-vgv-storage.s3.eu-central-1.amazonaws.com/ip_addresses.zip). The file is zipped, and you should unzip it before processing. Please note that the size of unzipped file is about 120Gb.
 
 ## How to build and run the project
 
@@ -72,7 +68,47 @@ ContainerBenchmark.longArrayContainer         1K  avgt    5   0.080 ± 0.002   s
 
 ## Solution description
 
-A custom collector is used to count unique addresses. This collector can be configured to be used with different containers to store unique addresses.
+### Naive approach 
+
+The first naive attempt to solve the problem:
+
+```shell
+sort -u ips.txt | wc -l
+```
+
+After very long time of processing the very huge text file I've got an error message:
+
+```text
+sort: write failed: /tmp/sortcQjXmj: No space left on device
+0
+```
+
+### The naive approach in Java
+
+The same approach, but implemented as a Java program, looks like this:
+
+```java
+var path = Path.of("ips.txt");
+
+try (var lines = Files.lines(path)) {
+    var unique = lines.distinct().count();    
+    System.out.println(unique);
+}
+```
+
+### Working Solution
+
+The IPv4 addresses converted to int number and then stored in custom container. In order to use Stream API I created a custom collector, and it used to count unique addresses. 
+This collector can be configured to be used with different converter and container. This code snippet demonstrates the use of the collector.
+
+```java
+var path = Path.of("ips.txt");
+
+try (var lines = Files.lines(path)) {
+    var unique = lines.collect(IPv4Collector.countingUnique());    
+    System.out.println(unique);
+}
+```
 
 The project has two general container implementations:
 -   BitSetContainer
