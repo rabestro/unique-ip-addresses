@@ -7,11 +7,11 @@ import spock.lang.Title
 
 @Title('IPv4 Converter')
 @Narrative('A simple implementation of IPv4 converter')
-class IPv4SimpleConverterTest extends Specification {
+class IPv4ConverterTest extends Specification {
 
     def 'should convert string representation of IPv4 to int'() {
         given:
-        def converter = new IPv4SimpleConverter()
+        def converter = new IPv4Converter()
 
         when:
         def actual = converter.applyAsInt(ip)

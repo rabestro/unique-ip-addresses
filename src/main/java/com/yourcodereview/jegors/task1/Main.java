@@ -1,14 +1,20 @@
 package com.yourcodereview.jegors.task1;
 
+import com.yourcodereview.jegors.task1.container.IntContainer;
+import com.yourcodereview.jegors.task1.container.LongArrayContainer;
+import com.yourcodereview.jegors.task1.converter.IPv4Converter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.function.BiConsumer;
+import java.util.function.ToIntFunction;
+import java.util.stream.Stream;
 
 import static java.lang.System.Logger.Level.ERROR;
 import static java.lang.System.Logger.Level.INFO;
-import static com.yourcodereview.jegors.task1.collector.IPv4Collector.countingUnique;
 
 /**
  * Console application for counting unique addresses in a text file
@@ -16,6 +22,10 @@ import static com.yourcodereview.jegors.task1.collector.IPv4Collector.countingUn
 @SuppressWarnings("squid:S106")
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
+    private static final ToIntFunction<CharSequence> IPV4_CONVERTER = new IPv4Converter();
+    private static final BiConsumer<IntContainer, IntContainer> COMBINER = (a, b) -> {
+        throw new UnsupportedOperationException("Parallel processing is not supported.");
+    };
 
     /**
      * Application start point
@@ -38,21 +48,20 @@ public class Main {
         var startTime = Instant.now();
         LOGGER.log(INFO, "Execution start time: {0}", startTime);
 
-        process(path);
+        try (var ips = Files.lines(path)) {
+            System.out.println(countUnique(ips));
+        } catch (IOException e) {
+            LOGGER.log(ERROR, "Error during processing file: {0}", path);
+        }
 
         var executionTime = Duration.between(startTime, Instant.now());
         LOGGER.log(INFO, "Execution time: {0}", executionTime);
     }
 
-    private static void process(Path path) {
-        try (var lines = Files.lines(path)) {
-
-            var unique = lines.collect(countingUnique());
-
-            System.out.println(unique);
-
-        } catch (IOException e) {
-            LOGGER.log(ERROR, "Error during processing file: {0}", path);
-        }
+    private static long countUnique(Stream<String> ipAddresses) {
+        return ipAddresses
+                .mapToInt(IPV4_CONVERTER)
+                .collect(LongArrayContainer::new, IntContainer::add, COMBINER)
+                .countUnique();
     }
 }

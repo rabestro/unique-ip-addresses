@@ -5,7 +5,6 @@
  */
 module ip.counter.main {
     exports com.yourcodereview.jegors.task1;
-    exports com.yourcodereview.jegors.task1.collector;
     exports com.yourcodereview.jegors.task1.converter;
     exports com.yourcodereview.jegors.task1.container;
 }

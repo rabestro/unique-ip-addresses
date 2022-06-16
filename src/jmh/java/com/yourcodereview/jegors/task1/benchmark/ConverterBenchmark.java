@@ -1,13 +1,13 @@
 package com.yourcodereview.jegors.task1.benchmark;
 
 import com.yourcodereview.jegors.task1.converter.IPv4Converter;
-import com.yourcodereview.jegors.task1.converter.IPv4SimpleConverter;
 import org.openjdk.jmh.annotations.*;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
+import java.util.function.ToIntFunction;
 import java.util.regex.Pattern;
 
 @Fork(1)
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 @Measurement(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 public class ConverterBenchmark {
     private static final Pattern DOT = Pattern.compile(".", Pattern.LITERAL);
-    private final IPv4Converter converter = new IPv4SimpleConverter();
+    private final ToIntFunction<CharSequence> converter = new IPv4Converter();
 
     @Param({"1.2.3.4", "120.1.34.78", "129.205.201.114"})
     public String ipAddress;
