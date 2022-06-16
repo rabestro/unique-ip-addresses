@@ -20,4 +20,14 @@ public interface IntContainer {
      * @return count of unique numbers in the container
      */
     long countUnique();
+
+    /**
+     * Adds all the elements in the specified container to this container
+     * if they're not already present (optional operation).
+     *
+     * @param other int container
+     */
+    default void addAll(IntContainer other) {
+        throw new UnsupportedOperationException();
+    }
 }

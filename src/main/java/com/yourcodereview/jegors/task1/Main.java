@@ -23,9 +23,6 @@ import static java.lang.System.Logger.Level.INFO;
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
     private static final ToIntFunction<CharSequence> IPV4_CONVERTER = new IPv4Converter();
-    private static final BiConsumer<IntContainer, IntContainer> COMBINER = (a, b) -> {
-        throw new UnsupportedOperationException("Parallel processing is not supported.");
-    };
 
     /**
      * Application start point
@@ -60,8 +57,8 @@ public class Main {
 
     private static long countUnique(Stream<String> ipAddresses) {
         return ipAddresses
-                .mapToInt(IPV4_CONVERTER)
-                .collect(LongArrayContainer::new, IntContainer::add, COMBINER)
+                .mapToInt(new IPv4Converter())
+                .collect(LongArrayContainer::new, IntContainer::add, IntContainer::addAll)
                 .countUnique();
     }
 }

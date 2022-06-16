@@ -98,17 +98,22 @@ try (var lines = Files.lines(path)) {
 
 ### Working Solution
 
-The IPv4 addresses converted to int number and then stored in custom container. In order to use Stream API I created a custom collector, and it used to count unique addresses. 
-This collector can be configured to be used with different converter and container. This code snippet demonstrates the use of the collector.
+I'm reading IPv4 addresses from a file using `Files.lines()`. Then the ip addresses from the textual representation are 
+converted to a corresponding number. Then the resulting stream of int numbers is collected in a container.
+The project has several container implementations optimized for different amounts of data.
+
+This small code snippet contains the main idea of the solution.
 
 ```java
-var path = Path.of("ips.txt");
-
-try (var lines = Files.lines(path)) {
-    var unique = lines.collect(IPv4Collector.countingUnique());    
-    System.out.println(unique);
+private static long countUnique(Stream<String> ipAddresses) {
+    return ipAddresses
+                .mapToInt(new IPv4Converter())
+                .collect(LongArrayContainer::new, IntContainer::add, IntContainer::addAll)
+                .countUnique();
 }
 ```
+
+Here `IntContainer` is the interface of the container, and `LongArrayContainer` is its implementation.
 
 The project has two general container implementations:
 -   BitSetContainer
