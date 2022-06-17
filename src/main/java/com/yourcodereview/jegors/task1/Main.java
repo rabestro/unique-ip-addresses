@@ -1,14 +1,18 @@
 package com.yourcodereview.jegors.task1;
 
+import com.yourcodereview.jegors.task1.container.IntContainer;
+import com.yourcodereview.jegors.task1.container.LongArrayContainer;
+import com.yourcodereview.jegors.task1.converter.IPv4Converter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.stream.Stream;
 
 import static java.lang.System.Logger.Level.ERROR;
 import static java.lang.System.Logger.Level.INFO;
-import static com.yourcodereview.jegors.task1.collector.IPv4Collector.countingUnique;
 
 /**
  * Console application for counting unique addresses in a text file
@@ -38,21 +42,20 @@ public class Main {
         var startTime = Instant.now();
         LOGGER.log(INFO, "Execution start time: {0}", startTime);
 
-        process(path);
+        try (var ips = Files.lines(path)) {
+            System.out.println(countUnique(ips));
+        } catch (IOException e) {
+            LOGGER.log(ERROR, "Error during processing file: {0}", path);
+        }
 
         var executionTime = Duration.between(startTime, Instant.now());
         LOGGER.log(INFO, "Execution time: {0}", executionTime);
     }
 
-    private static void process(Path path) {
-        try (var lines = Files.lines(path)) {
-
-            var unique = lines.collect(countingUnique());
-
-            System.out.println(unique);
-
-        } catch (IOException e) {
-            LOGGER.log(ERROR, "Error during processing file: {0}", path);
-        }
+    private static long countUnique(Stream<String> ipAddresses) {
+        return ipAddresses
+                .mapToInt(new IPv4Converter())
+                .collect(LongArrayContainer::new, IntContainer::add, IntContainer::addAll)
+                .countUnique();
     }
 }
