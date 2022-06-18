@@ -1,15 +1,17 @@
 package com.yourcodereview.jegors.task1;
 
-import com.yourcodereview.jegors.task1.container.IntContainer;
-import com.yourcodereview.jegors.task1.container.LongArrayContainer;
-import com.yourcodereview.jegors.task1.converter.IPv4Converter;
+import com.yourcodereview.jegors.task1.counter.IPStreamCounter;
+import com.yourcodereview.jegors.task1.counter.IPv4CollectorCounter;
+import com.yourcodereview.jegors.task1.counter.IPv4Counter;
+import com.yourcodereview.jegors.task1.counter.NaiveCounter;
+import com.yourcodereview.jegors.task1.counter.NaiveIntCounter;
+import com.yourcodereview.jegors.task1.counter.SimpleCounter;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.stream.Stream;
+import java.util.Map;
 
 import static java.lang.System.Logger.Level.ERROR;
 import static java.lang.System.Logger.Level.INFO;
@@ -21,6 +23,14 @@ import static java.lang.System.Logger.Level.INFO;
 public class Main {
     private static final System.Logger LOGGER = System.getLogger("IPv4 Counter");
 
+    private static final Map<String, IPv4Counter> counters = Map.of(
+            "simple", new SimpleCounter(),
+            "naive", new NaiveCounter(),
+            "naiveInt", new NaiveIntCounter(),
+            "collector", new IPv4CollectorCounter(),
+            "stream", new IPStreamCounter()
+    );
+
     /**
      * Application start point
      * <p>
@@ -30,32 +40,27 @@ public class Main {
      *
      * @param args - path to the test file in the first argument
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        if (args.length != 1) {
-            System.out.println("Please specify one argument - the path to the file with IP addresses");
-            LOGGER.log(ERROR, "Invalid number of arguments. One expected, provided: {0}", args.length);
+        if (args.length != 2) {
+            System.out.println("""
+                    Please specify two arguments: the counter name and the path to the file.
+                    Available counters are""" + " " + counters.keySet()
+            );
+
+            LOGGER.log(ERROR, "Invalid number of arguments. Two expected, provided: {0}", args.length);
             return;
         }
-        var path = Path.of(args[0]);
+        var counter = counters.get(args[0]);
+        var path = Path.of(args[1]);
 
         var startTime = Instant.now();
         LOGGER.log(INFO, "Execution start time: {0}", startTime);
 
-        try (var ips = Files.lines(path)) {
-            System.out.println(countUnique(ips));
-        } catch (IOException e) {
-            LOGGER.log(ERROR, "Error during processing file: {0}", path);
-        }
+        System.out.println(counter.countUnique(path));
 
         var executionTime = Duration.between(startTime, Instant.now());
         LOGGER.log(INFO, "Execution time: {0}", executionTime);
     }
 
-    private static long countUnique(Stream<String> ipAddresses) {
-        return ipAddresses
-                .mapToInt(new IPv4Converter())
-                .collect(LongArrayContainer::new, IntContainer::add, IntContainer::addAll)
-                .countUnique();
-    }
 }
