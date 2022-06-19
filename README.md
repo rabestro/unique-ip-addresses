@@ -6,7 +6,7 @@ A simple task to count the number of unique IPv4 addresses in a huge file.
 
 ## Task Description
 
-Given a simple text file with IPv4 addresses. One line - one address, like this:
+Given a simple text file with IPv4 addresses in dotted-decimal notation. One line - one address, like this:
 ```
 145.67.23.4
 8.34.5.23
