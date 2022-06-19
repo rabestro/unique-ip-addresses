@@ -102,7 +102,7 @@ To read a text file, we use the `Files.lines()` method. This method returns a st
 each of which is a textual representation of the IPv4 address. The addresses are then converted 
 from their textual representation to integers of type int (4 bytes). These addresses are added 
 to a special container, where one bit is used to indicate this number. Since the int type uses 4 bytes, 
-our container needs $2^3^2$ bits to indicate the presence of numbers. This is equal to 512 MB. 
+our container needs $2^{32}$ bits to indicate the presence of numbers. This is equal to 512 MB. 
 This volume is fixed and does not depend on the total number of IPv4 addresses.
 
 The project implements one version of the converter and several variants of the container 
