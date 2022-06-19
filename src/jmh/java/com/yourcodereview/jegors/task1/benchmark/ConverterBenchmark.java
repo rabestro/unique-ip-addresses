@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Warmup(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 5, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 5, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
 public class ConverterBenchmark {
     private static final Pattern DOT = Pattern.compile(".", Pattern.LITERAL);
     private final ToIntFunction<CharSequence> converter = new IPv4Converter();

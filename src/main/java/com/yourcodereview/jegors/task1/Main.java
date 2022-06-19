@@ -5,6 +5,7 @@ import com.yourcodereview.jegors.task1.container.LongArrayContainer;
 import com.yourcodereview.jegors.task1.converter.IPv4Converter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -42,10 +43,12 @@ public class Main {
         var startTime = Instant.now();
         LOGGER.log(INFO, "Execution start time: {0}", startTime);
 
-        try (var ips = Files.lines(path)) {
+        try (var ips = Files.lines(path, StandardCharsets.US_ASCII)) {
             System.out.println(countUnique(ips));
         } catch (IOException e) {
-            LOGGER.log(ERROR, "Error during processing file: {0}", path);
+            var message = "Error during processing file: " + path;
+            System.out.println(message);
+            LOGGER.log(ERROR, message);
         }
 
         var executionTime = Duration.between(startTime, Instant.now());

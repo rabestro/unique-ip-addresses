@@ -34,7 +34,7 @@ To run using gradle please use a command:
 Alternatively, you can run the program using the command:
 
 ```shell
-java -jar build\libs\ipcounter.jar ip_addresses
+java -jar build/libs/ipcounter.jar ip_addresses
 ```
 
 Please note that to run the application, you should replace `ip_addresses` with a full path to the source text file with IPv4 addresses.
@@ -76,7 +76,7 @@ The first naive attempt to solve the problem:
 sort -u ips.txt | wc -l
 ```
 
-After very long time of processing the very huge text file I've got an error message:
+After a long time processing a huge text file, I got an error message:
 
 ```text
 sort: write failed: /tmp/sortcQjXmj: No space left on device
@@ -96,13 +96,24 @@ try (var lines = Files.lines(path)) {
 }
 ```
 
-### Working Solution
+### The Solution
 
-I'm reading IPv4 addresses from a file using `Files.lines()`. Then the ip addresses from the textual representation are 
-converted to a corresponding number. Then the resulting stream of int numbers is collected in a container.
-The project has several container implementations optimized for different amounts of data.
+To read a text file, we use the `Files.lines()` method. This method returns a stream of strings, 
+each of which is a textual representation of the IPv4 address. The addresses are then converted 
+from their textual representation to integers of type int (4 bytes). These addresses are added 
+to a special container, where one bit is used to indicate this number. Since the int type uses 4 bytes, 
+our container needs $2^32$ bits to indicate the presence of numbers. This is equal to 512 MB. 
+This volume is fixed and does not depend on the total number of IPv4 addresses.
 
-This small code snippet contains the main idea of the solution.
+The project implements one version of the converter and several variants of the container 
+optimized for different amounts of data. In particular, `LongArrayContainer` immediately allocates 
+the required 512 MB of data and is optimal for very large amounts of data. Whereas `BitSetContainer` 
+allocates the required memory dynamically for the used IP address segments. Thus, if we have IP addresses 
+only from certain segments, this will allow us to allocate the minimum required memory. 
+The container `DualBitSetContainer` is a particular, slightly more optimized, 
+case of the more general `BitSetContainer`.
+
+The following code snippet illustrates the idea behind this solution.
 
 ```java
 private static long countUnique(Stream<String> ipAddresses) {
@@ -115,8 +126,10 @@ private static long countUnique(Stream<String> ipAddresses) {
 
 Here `IntContainer` is the interface of the container, and `LongArrayContainer` is its implementation.
 
-The project has two general container implementations:
--   BitSetContainer
--   LongArrayContainer
+The implementation of the converter is highly optimized and assumes that the IP address in text format is correct. 
+The converter does not perform any checks and will return an arbitrary number in case of an incorrect address. 
+If additional verification is required, then you can either add a filter to the string stream, 
+or implement a converter where there will be an additional check of the address for correctness.
 
-The class DualBitSetContainer was my very first solution for the task and represent a special case of BitSetContainer with level equals 1. 
+In the catalog `src/jmh` you will find benchmarks where several implementations of converters are considered. 
+At the moment, the solution seems to be close to optimal.
