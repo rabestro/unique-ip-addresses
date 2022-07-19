@@ -1,6 +1,8 @@
 package com.yourcodereview.jegors.task1.benchmark;
 
 import com.yourcodereview.jegors.task1.converter.IPv4Converter;
+import com.yourcodereview.jegors.task1.converter.InetAddressConverter;
+import com.yourcodereview.jegors.task1.converter.MkyongConverter;
 import com.yourcodereview.jegors.task1.converter.OptimizedConverter;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -13,9 +15,6 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 import java.util.function.ToIntFunction;
 import java.util.regex.Pattern;
@@ -25,11 +24,14 @@ import java.util.regex.Pattern;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Warmup(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 3, time = 5000, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 10, time = 10000, timeUnit = TimeUnit.MILLISECONDS)
 public class ConverterBenchmark {
     private static final Pattern DOT = Pattern.compile(".", Pattern.LITERAL);
     private final ToIntFunction<CharSequence> converter = new IPv4Converter();
     private final ToIntFunction<CharSequence> optimized = new OptimizedConverter();
+
+    private final ToIntFunction<String> mkyongConverter = new MkyongConverter();
+    private final ToIntFunction<String> inetConverter = new InetAddressConverter();
 
     @Param({"1.2.3.4", "120.1.34.78", "129.205.201.114"})
     public String ipAddress;
@@ -45,31 +47,30 @@ public class ConverterBenchmark {
     }
 
     @Benchmark
-    public int applyAsInt() {
-        long base = 0;
-        long part = 0;
+    public int mkyongConverter() {
+        return mkyongConverter.applyAsInt(ipAddress);
+    }
 
-        for (int i = 0, n = ipAddress.length(); i < n; ++i) {
-            char symbol = ipAddress.charAt(i);
-            if (symbol == '.') {
-                base = (base << Byte.SIZE) | part;
-                part = 0;
-            } else {
-                part = part * 10 + symbol - '0';
-            }
+    @Benchmark
+    public int inetAddressConverter() {
+        return inetConverter.applyAsInt(ipAddress);
+    }
+
+    @Benchmark
+    public int mkyongConverter2() {
+        var ipAddressInArray = ipAddress.split(Pattern.quote("."));
+        long result = 0L;
+
+        for (int i = 0; i < ipAddressInArray.length; i++) {
+            int power = 3 - i;
+            int ip = Integer.parseInt(ipAddressInArray[i]);
+            result += ip * Math.pow(256, power);
         }
-        return (int) ((base << Byte.SIZE) | part);
+
+        return (int) result;
     }
 
-//    @Benchmark
-    public int inetAddressConverter() throws UnknownHostException {
-        return ByteBuffer
-                .allocate(Integer.BYTES)
-                .put(InetAddress.getByName(ipAddress).getAddress())
-                .getInt(0);
-    }
-
-//    @Benchmark
+    @Benchmark
     public long parseIpShift() {
         long result = 0L;
         // iterate over each octet
@@ -82,7 +83,7 @@ public class ConverterBenchmark {
         return result;
     }
 
-//    @Benchmark
+    @Benchmark
     public long parseIpShiftImproved() {
         long result = 0L;
         // iterate over each octet
