@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * An implementation of {@link IntContainer} optimized to store a huge amount of int numbers.
- *
+ * <p>
  * For this purpose, we immediately allocate an array of long numbers as a bit set.
  * The added numbers are divided into two parts. The first 26 bits are used to get
  * the index in the array, and the remaining 6 bits represent a value from 0 to 63.
@@ -20,8 +20,8 @@ public class LongArrayContainer implements IntContainer {
     @Override
     public void add(final int number) {
         final var index = number >>> VALUE_SIZE;
-        final var value = 1L << (number & VALUE_MASK);
-        storage[index] |= value;
+        final var value = number & VALUE_MASK;
+        storage[index] |= 1L << value;
     }
 
     @Override

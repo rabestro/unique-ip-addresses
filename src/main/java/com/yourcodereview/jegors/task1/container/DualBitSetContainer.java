@@ -10,19 +10,20 @@ import java.util.BitSet;
  * implementation and equals to {@code new BitSetContainer(1)}.
  */
 public class DualBitSetContainer implements IntContainer {
-    private final BitSet[] storage = {new BitSet(), new BitSet()};
+    private final BitSet positive = new BitSet(Integer.MAX_VALUE);
+    private final BitSet negative = new BitSet(Integer.MAX_VALUE);
 
     @Override
     public void add(int i) {
         if (i >= 0) {
-            storage[0].set(i);
+            positive.set(i);
         } else {
-            storage[1].set(~i);
+            negative.set(~i);
         }
     }
 
     @Override
     public long countUnique() {
-        return (long) storage[0].cardinality() + storage[1].cardinality();
+        return (long) positive.cardinality() + negative.cardinality();
     }
 }
