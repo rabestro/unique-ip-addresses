@@ -2,6 +2,7 @@ package com.yourcodereview.jegors.task1.benchmark;
 
 import com.yourcodereview.jegors.task1.converter.IPv4Converter;
 import com.yourcodereview.jegors.task1.converter.InetAddressConverter;
+import com.yourcodereview.jegors.task1.converter.Mkyong2Converter;
 import com.yourcodereview.jegors.task1.converter.MkyongConverter;
 import com.yourcodereview.jegors.task1.converter.OptimizedConverter;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -30,13 +31,14 @@ public class ConverterBenchmark {
     private final ToIntFunction<CharSequence> converter = new IPv4Converter();
     private final ToIntFunction<CharSequence> optimized = new OptimizedConverter();
 
-    private final ToIntFunction<String> mkyongConverter = new MkyongConverter();
+    private final ToIntFunction<String> mkyong = new MkyongConverter();
+    private final ToIntFunction<String> mkyong2 = new Mkyong2Converter();
     private final ToIntFunction<String> inetConverter = new InetAddressConverter();
 
     @Param({"1.2.3.4", "120.1.34.78", "129.205.201.114"})
     public String ipAddress;
 
-    @Benchmark
+    //    @Benchmark
     public int simpleConverter() {
         return converter.applyAsInt(ipAddress);
     }
@@ -48,7 +50,12 @@ public class ConverterBenchmark {
 
     @Benchmark
     public int mkyongConverter() {
-        return mkyongConverter.applyAsInt(ipAddress);
+        return mkyong.applyAsInt(ipAddress);
+    }
+
+    //    @Benchmark
+    public int mkyong2Converter() {
+        return mkyong2.applyAsInt(ipAddress);
     }
 
     @Benchmark
@@ -56,21 +63,8 @@ public class ConverterBenchmark {
         return inetConverter.applyAsInt(ipAddress);
     }
 
-    @Benchmark
-    public int mkyongConverter2() {
-        var ipAddressInArray = ipAddress.split(Pattern.quote("."));
-        long result = 0L;
 
-        for (int i = 0; i < ipAddressInArray.length; i++) {
-            int power = 3 - i;
-            int ip = Integer.parseInt(ipAddressInArray[i]);
-            result += ip * Math.pow(256, power);
-        }
-
-        return (int) result;
-    }
-
-    @Benchmark
+    //    @Benchmark
     public long parseIpShift() {
         long result = 0L;
         // iterate over each octet
@@ -83,7 +77,7 @@ public class ConverterBenchmark {
         return result;
     }
 
-    @Benchmark
+    //    @Benchmark
     public long parseIpShiftImproved() {
         long result = 0L;
         // iterate over each octet

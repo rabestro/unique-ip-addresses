@@ -21,6 +21,7 @@ public class LongArrayContainer implements IntContainer {
     public void add(final int number) {
         final var index = number >>> VALUE_SIZE;
         final var value = 1L << (number & VALUE_MASK);
+
         storage[index] |= value;
     }
 
