@@ -2,7 +2,7 @@ plugins {
     id 'groovy'
     id 'application'
     id 'jacoco'
-    id "org.sonarqube" version "3.3"
+    id "org.sonarqube" version "3.4.0.2513"
 
     // JMH Gradle Plugin
     // https://github.com/melix/jmh-gradle-plugin
@@ -10,7 +10,7 @@ plugins {
 }
 
 group 'lv.id.jc'
-version '1.0'
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -25,14 +25,14 @@ configurations.jmhImplementation.extendsFrom(configurations.implementation)
 
 dependencies {
     // Spock Framework
-    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
-    testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    testImplementation 'org.codehaus.groovy:groovy-all:3.0.13'
     testImplementation 'org.spockframework:spock-core'
 
     // Spock Reports
-    testRuntimeOnly 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
-    testImplementation 'org.slf4j:slf4j-api:1.7.36'
-    testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.36'
+    testRuntimeOnly 'com.athaydes:spock-reports:2.3.1-groovy-3.0'
+    testImplementation 'org.slf4j:slf4j-api:2.0.3'
+    testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.3'
 
     // JMH benchmark
     jmh 'org.openjdk.jmh:jmh-core:1.35'
