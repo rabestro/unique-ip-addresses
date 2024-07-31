@@ -1,5 +1,3 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rabestro_codereview-task1-ip-addresses&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=rabestro_codereview-task1-ip-addresses)
-
 # IPv4 addresses
 
 A simple task to count the number of unique IPv4 addresses in a huge file.
