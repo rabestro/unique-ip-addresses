@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "backend"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    assignees:
+      - "rabestro"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "08:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "ci-cd"
+    commit-message:
+      prefix: "chore"
+    assignees:
+      - "rabestro"
+    rebase-strategy: "auto"
