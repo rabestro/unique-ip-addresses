@@ -35,9 +35,9 @@ dependencies {
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.6'
 
     // JMH benchmark
-    jmh 'org.openjdk.jmh:jmh-core:1.36'
-    jmh 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
-    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.36'
+    jmh 'org.openjdk.jmh:jmh-core:1.37'
+    jmh 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
 }
 
 // In order to run the application type the command:
