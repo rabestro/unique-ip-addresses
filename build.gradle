@@ -6,7 +6,7 @@ plugins {
 
     // JMH Gradle Plugin
     // https://github.com/melix/jmh-gradle-plugin
-    id "me.champeau.jmh" version "0.7.0"
+    id "me.champeau.jmh" version "0.7.3"
 }
 
 group 'lv.id.jc'
