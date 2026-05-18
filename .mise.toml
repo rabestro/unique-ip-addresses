@@ -1,0 +1,41 @@
+# mise configuration file
+# https://mise.jdehyde.com
+
+[tools]
+# Java 21 LTS - Latest Long Term Support release
+java = "21.0.2"
+
+# Gradle - Build tool
+gradle = "9.5.1"
+
+# Node (optional, for running CI/CD or other scripts)
+# node = "20.11.0"
+
+[tasks]
+# Task to build the project
+build = "gradle build"
+
+# Task to run tests
+test = "gradle test"
+
+# Task to run SonarQube analysis
+analyze = "gradle build sonarqube"
+
+# Task to clean build artifacts
+clean = "gradle clean"
+
+# Task to run the application
+run = "gradle run"
+
+# Task to show dependencies
+deps = "gradle dependencies"
+
+# Task for continuous development (watch mode)
+dev = "gradle build --continuous"
+
+# Environment variables
+[env]
+# Set minimum heap for tests
+TEST_MIN_HEAP = "800m"
+TEST_MAX_HEAP = "2000m"
+
