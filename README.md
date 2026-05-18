@@ -2,6 +2,48 @@
 
 A simple task to count the number of unique IPv4 addresses in a huge file.
 
+## System Requirements
+
+- **Java**: 21 (LTS) or later
+- **Gradle**: 9.5.1 or later
+- **Git**: 2.0 or later
+
+### Development Environment Setup
+
+We recommend using [mise](https://mise.jdehyde.com) for managing development tools and ensuring consistency across environments.
+
+#### Using mise
+
+Install mise following the [official guide](https://mise.jdehyde.com/getting-started.html), then run:
+
+```shell
+mise install
+```
+
+This will install all required tools specified in `.mise.toml` file.
+
+#### Using mise to run tasks
+
+```shell
+# Build the project
+mise run build
+
+# Run tests
+mise run test
+
+# Run the application
+mise run run -- /path/to/ip_addresses
+
+# Run SonarQube analysis
+mise run analyze
+```
+
+#### Manual Setup (without mise)
+
+If you prefer not to use mise, ensure you have:
+- Java 21 or later installed
+- Gradle 9.5.1 (or use the included `gradlew` wrapper)
+
 ## Task Description
 
 Given a simple text file with IPv4 addresses in dotted-decimal notation. One line - one address, like this:
