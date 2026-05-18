@@ -9,6 +9,12 @@ plugins {
     id "me.champeau.jmh" version "0.7.3"
 }
 
+// Java version compatibility
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 group 'lv.id.jc'
 version '1.0-SNAPSHOT'
 
