@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'org.spockframework:spock-core'
 
     // Spock Reports
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testRuntimeOnly 'com.athaydes:spock-reports:2.5.1-groovy-4.0'
     testImplementation 'org.slf4j:slf4j-api:2.0.18'
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.18'
